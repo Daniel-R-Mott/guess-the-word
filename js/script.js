@@ -8,11 +8,14 @@ const message = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again.hide");
 const guessForm = document.querySelector(".letter");
 const guessFormLabel = document.querySelector(".label");
+const guessesTaken = document.querySelector(".guesses-taken");
+const guessesTakenSpan = document.querySelector(".guesses-taken span");
 
 // Initial game state
 let word = "magnolia";
 let guessedLetters = [];
 let remainingGuesses = 8;
+let guessCounter = 0;
 
 // Grabs words from text file and sets one at random as game word
 const getWord = async function () {
@@ -42,6 +45,8 @@ button.addEventListener("click", function (e) {
   message.innerText = "";
   const inputValue = textInput.value;
   const validInput = inputValidator(inputValue);
+  guessCounter += 1;
+  console.log(guessCounter);
   if (validInput) {
     makeGuess(inputValue);
   }
@@ -133,6 +138,8 @@ const startOver = function () {
   playAgainButton.classList.remove("hide");
   guessForm.classList.add("hide");
   guessFormLabel.classList.add("hide");
+  guessesTakenSpan.innerText = `${guessCounter} guesses!`;
+  guessesTaken.classList.remove("hide");
 };
 
 playAgainButton.addEventListener("click", function () {
@@ -141,6 +148,7 @@ playAgainButton.addEventListener("click", function () {
   guessedLettersElement.innerText = "";
   remainingGuesses = 8;
   guessedLetters = [];
+  guessCounter = 0;
   remainingSpan.innerText = `${remainingGuesses} guesses`;
   playAgainButton.classList.add("hide");
   button.classList.remove("hide");
@@ -148,5 +156,7 @@ playAgainButton.addEventListener("click", function () {
   guessedLettersElement.classList.remove("hide");
   guessForm.classList.remove("hide");
   guessFormLabel.classList.remove("hide");
+  guessesTaken.classList.add("hide");
+
   getWord();
 });
