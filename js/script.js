@@ -9,7 +9,6 @@ const playAgainButton = document.querySelector(".play-again.hide");
 const guessForm = document.querySelector(".letter");
 const guessFormLabel = document.querySelector(".label");
 
-
 // Initial game state
 let word = "magnolia";
 let guessedLetters = [];
@@ -76,7 +75,7 @@ const makeGuess = function (letter) {
   }
 };
 
-// Reveals letter of game word if player guesses correctly
+// Displays letters player has guessed
 const showGuess = function () {
   guessedLettersElement.innerHTML = "";
   for (const letter of guessedLetters) {
@@ -102,7 +101,7 @@ const guessInput = function (guess) {
   }
 };
 
-
+// Reveals letters of the word the player has guessed correctly
 const updateWord = function (guessedLetters) {
   const wordUpper = word.toUpperCase();
   const wordArray = wordUpper.split("");
@@ -118,6 +117,7 @@ const updateWord = function (guessedLetters) {
   gameWon();
 };
 
+// Ends the game with win condition
 const gameWon = function () {
   if (word.toUpperCase() === inProgress.innerText) {
     message.classList.add("win");
@@ -126,17 +126,16 @@ const gameWon = function () {
   }
 };
 
-const startOver = function() {
+const startOver = function () {
   button.classList.add("hide");
   remainingGuessesElement.classList.add("hide");
   guessedLettersElement.classList.add("hide");
   playAgainButton.classList.remove("hide");
   guessForm.classList.add("hide");
   guessFormLabel.classList.add("hide");
-}
-;
+};
 
-playAgainButton.addEventListener("click", function() {
+playAgainButton.addEventListener("click", function () {
   message.classList.remove("win");
   message.innerText = "";
   guessedLettersElement.innerText = "";
