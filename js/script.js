@@ -6,11 +6,13 @@ const remainingGuessesElement = document.querySelector(".remaining");
 const remainingSpan = document.querySelector(".remaining span");
 const message = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again.hide");
+const guessForm = document.querySelector(".letter");
+const guessFormLabel = document.querySelector(".label");
 
 
 // Initial game state
 let word = "magnolia";
-const guessedLetters = [];
+let guessedLetters = [];
 let remainingGuesses = 8;
 
 // Grabs words from text file and sets one at random as game word
@@ -96,6 +98,7 @@ const guessInput = function (guess) {
   }
   if (remainingGuesses === 0) {
     message.innerText = `Game over! The word was ${word}`;
+    startOver();
   }
 };
 
@@ -119,5 +122,32 @@ const gameWon = function () {
   if (word.toUpperCase() === inProgress.innerText) {
     message.classList.add("win");
     message.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`;
+    startOver();
   }
 };
+
+const startOver = function() {
+  button.classList.add("hide");
+  remainingGuessesElement.classList.add("hide");
+  guessedLettersElement.classList.add("hide");
+  playAgainButton.classList.remove("hide");
+  guessForm.classList.add("hide");
+  guessFormLabel.classList.add("hide");
+}
+;
+
+playAgainButton.addEventListener("click", function() {
+  message.classList.remove("win");
+  message.innerText = "";
+  guessedLettersElement.innerText = "";
+  remainingGuesses = 8;
+  guessedLetters = [];
+  remainingSpan.innerText = `${remainingGuesses} guesses`;
+  playAgainButton.classList.add("hide");
+  button.classList.remove("hide");
+  remainingGuessesElement.classList.remove("hide");
+  guessedLettersElement.classList.remove("hide");
+  guessForm.classList.remove("hide");
+  guessFormLabel.classList.remove("hide");
+  getWord();
+});
